@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato';
+        }
+
+        h2 {
+            margin: 20px 0;
+        }
+
+        .logo img {
+            width: 20%;
+            margin: 30px 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        ul {
+            padding: 20px;
+            margin: 50px 10%;
+            width: 80%;
+            border-radius: 10px;
+            background-color: rgb(241, 241, 241);
+        }
+
+        li {
+            line-height: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid grey;
+        } 
+        li i {
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        li:hover {
+            background-color: white;
+        }
+
+        .add_element {
+            display: flex;
+            justify-content: center;
+            height: 50px;
+        }
+
+        input {
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 20px;
+            width: 300px;
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        button {
+            cursor: pointer;
+            height: 40px;
+            width: 100px;
+            border: 1px solid grey;
+            font-weight: 600;
+            border-radius: 5px;
+            background-color: rgb(241, 241, 241);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>To do list</title>
+</head>
+<body>
+    <div id='root' class="container">
+        <div class="logo">
+            <img src="https://www.boolean.careers/images/misc/logo.png" alt="">
+        </div>
+        <div class="add_element">
+            <input @keyUp.enter='add' placeholder='Cose da fare...' id='addItem' type="text" v-model='newToDo'>
+            <button @click='add'>Aggiungi</button>    
+        </div>
+        <ul v-if="listToDo.length > 0">
+            <li v-for='(element, index) in listToDo'>{{element}}<i @click='canc(index)' class="fas fa-times"></i></li>
+        </ul>
+        
+        <h2 v-else>Non ci sono impegni</h2>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#root',
+            data: {
+                newToDo: '',
+                listToDo: [
+                    'Fare la spesa',
+                    'Pulire casa'
+                ]
+            },
+            methods: {
+                add: function() {
+                    //in vanilla JS
+
+                    // var addItem = document.getElementById('addItem');
+
+                    // if (addItem.value != 0) {
+                    //     this.listToDo.push(addItem.value);
+                    // }
+
+                    if (this.newToDo != 0) {
+                        this.listToDo.push(this.newToDo);
+                        this.newToDo = '';
+                    }
+
+                },
+                canc: function(index) {
+                    this.listToDo.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
